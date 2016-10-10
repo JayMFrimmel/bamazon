@@ -31,7 +31,7 @@ var runSearch = function() {
 			break;
 
 			case 'By department name':
-				deptName();
+				deptSearch();
 			break;
 		}
 	})
@@ -44,6 +44,42 @@ var itemSearch = function() {
 		message: "Please enter the item number here."
 	}).then(function(answer) {
 		var query = 'SELECT product, department, price FROM products WHERE ?'
-		connection.query(query, )
+		connection.query(query, {item: answer.itemID}, function(err, res) {
+				for (var i = 0; i < res.length; i++) {
+					console.log("Product name: " + res[i].product + " || Department" + res[i].department + "$ " + res[i].price);
+					}
+				runSearch();
+		})
 	})
-}
+};
+
+var productSearch = function() {
+	inquirer.prompt({
+		name: "Product Name",
+		type: "input",
+		message: "Please enter the product name here"	
+	}).then(function(answer) {
+		console.log(answer.product)
+		connection.query('SELECT * FROM products WHERE ?', {products: answer.product},
+		function(err, res) {
+			console.log("Item Number: " + res[0].itemID + " || Department" res[0}.deptNAME + "$ " + res[0].price);
+		runSearch();
+		})
+	})
+};
+
+var deptSearch = function() {
+	inquirer.prompt({
+		name: "Department Name",
+		type: "input",
+		message: "Please enter the department name here"
+	}).then(function(answer) {
+		console.log(answer.department)
+		connection.query('SELECT * FROM products WHERE ?', {product: answer.department},
+		function(err, res) {
+			console.log
+		})("Item Number: " + res[0].itemID + " || Department" + "$ " + res[0].price);
+		runSearch();
+		})
+	}
+};
