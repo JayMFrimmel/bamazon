@@ -19,12 +19,31 @@ var runSearch = function() {
 		name: "action",
 		type: "list",
 		message: "How would you like to choose your items:",
-		choices: ["By item number", "by item name", "by department name"]
+		choices: ["By item number", "By product name", "By department name"]
 	}).then(function(answer) {
-		switch(answer.action {
+		switch(answer.action) {
 			case 'By item number':
-				
+				itemSearch();
+			break;
 
-		})
+			case 'By product name':
+				productSearch();
+			break;
+
+			case 'By department name':
+				deptName();
+			break;
+		}
+	})
+}
+
+var itemSearch = function() {
+	inquirer.prompt({
+		name: "Item Number",
+		type: "input",
+		message: "Please enter the item number here."
+	}).then(function(answer) {
+		var query = 'SELECT product, department, price FROM products WHERE ?'
+		connection.query(query, )
 	})
 }
